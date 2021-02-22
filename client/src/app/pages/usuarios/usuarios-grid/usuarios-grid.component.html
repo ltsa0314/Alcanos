@@ -1,0 +1,52 @@
+<nb-card>
+  <nb-card-body>
+    <h4>Usuarios</h4>
+    <nb-actions size="small">
+      <nb-action icon="plus-circle-outline" link="insert"></nb-action>
+      <nb-action icon="refresh-outline" (click)="loadData()"></nb-action>
+    </nb-actions>
+  </nb-card-body>
+</nb-card>
+<div class="row">
+  <div class="col-md-4" *ngFor="let item of data">
+    <nb-card>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-2">
+            <nb-user size="medium" [name]="item.Nombre" onlyPicture>
+            </nb-user>
+          </div>
+          <div class="col-10">
+            <label class="form-control-label">
+              <strong>Nombre:</strong> {{ item.Nombre }}
+            </label>
+            <br />
+            <label class="form-control-label">
+              <strong>Correo:</strong> {{ item.Correo }}
+            </label>
+            <br />
+            <label class="form-control-label">
+              <strong>Fecha Creacion:</strong> {{ item.Fecha | date }}
+            </label>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <nb-actions size="small" fullWidth="true">
+          <nb-action
+            icon="eye-outline"
+            (click)="onInfo(item.UsuarioId)"
+          ></nb-action>
+          <nb-action
+            icon="edit-outline"
+            (click)="onUpdate(item.UsuarioId)"
+          ></nb-action>
+          <nb-action
+            icon="trash-2-outline"
+            (click)="onDelete(item.UsuarioId)"
+          ></nb-action>
+        </nb-actions>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>

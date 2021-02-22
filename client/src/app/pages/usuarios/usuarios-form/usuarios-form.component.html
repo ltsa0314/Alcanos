@@ -1,0 +1,105 @@
+<nb-card>
+  <nb-card-body>
+    <h4>Usuarios - {{ title }}</h4>
+  </nb-card-body>
+</nb-card>
+
+<div class="row">
+  <div class="col-8" [ngClass]="{'col-12': title=='insert'}">
+    <nb-card>
+      <nb-card-body>
+        <h4>Informacion Basica</h4>
+        <br>
+        <hr>
+        <label>Nombre</label>
+        <input
+          fullWidth="true"
+          nbInput
+          [(ngModel)]="model.Nombre"
+          [disabled]="isInfo"
+        />
+
+        <label>Contraseña</label>
+        <input
+          type="password"
+          fullWidth="true"
+          nbInput
+          [(ngModel)]="model.Contrasena"
+          [disabled]="isInfo"
+        />
+        <label>Correo</label>
+        <input
+          fullWidth="true"
+          nbInput
+          [(ngModel)]="model.Correo"
+          [disabled]="isInfo"
+        />
+      </nb-card-body>
+      <nb-card-footer>
+        <button
+          class="btn-footer"
+          nbButton
+          status="danger"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+        <button
+          class="btn-footer"
+          *ngIf="!isInfo"
+          nbButton
+          status="success"
+          (click)="onSave()"
+        >
+          Guardar
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+  <div class="col-4" *ngIf="title== 'info' || title== 'update'">
+    <nb-card>
+      <nb-card-body>
+        <h4>Roles</h4>
+        <br />
+        <hr />
+        <ng-container *ngIf="title== 'update'">
+
+          <label>Agregar Rol</label>
+          <nb-select
+            placeholder="Seleccion un rol"
+            fullWidth="true"
+            [(selected)]="rolId"
+            [disabled]="isInfo"
+          >
+            <nb-option *ngFor="let rol of roles" [value]="rol.RolId">{{
+              rol.Nombre
+            }}</nb-option>
+          </nb-select>
+          <button
+            fullWidth
+            *ngIf="!isInfo"
+            nbButton
+            status="success"
+            (click)="onAddRol(model.UsuarioId)"
+          >
+            Agregar
+          </button>
+          <br />
+        </ng-container>
+
+
+        <nb-list>
+          <nb-list-item *ngFor="let rol of usuarioRoles">
+            <label>{{ getNombreRol(rol.RolId) }}</label>
+            <nb-actions size="small" fullWidth="true"  *ngIf="title== 'update'">
+              <nb-action
+                icon="trash-2-outline"
+                (click)="onDeleteRol(model.UsuarioId, rol.RolId)"
+              ></nb-action>
+            </nb-actions>
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

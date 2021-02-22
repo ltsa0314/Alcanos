@@ -1,0 +1,89 @@
+<nb-card>
+  <nb-card-body>
+    <h4>Roles - {{ title }}</h4>
+  </nb-card-body>
+</nb-card>
+
+<div class="row">
+  <div class="col-8" [ngClass]="{'col-12': title=='insert'}">
+    <nb-card>
+      <nb-card-body>
+        <h4>Informacion Basica</h4>
+        <br>
+        <hr>
+        <label>Nombre</label>
+        <input
+          fullWidth="true"
+          nbInput
+          [(ngModel)]="model.Nombre"
+          [disabled]="isInfo"
+        />
+      </nb-card-body>
+      <nb-card-footer>
+        <button
+          class="btn-footer"
+          nbButton
+          status="danger"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+        <button
+          class="btn-footer"
+          *ngIf="!isInfo"
+          nbButton
+          status="success"
+          (click)="onSave()"
+        >
+          Guardar
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+  <div class="col-4" *ngIf="title== 'info' || title== 'update'">
+    <nb-card>
+      <nb-card-body>
+        <h4>Opciones</h4>
+        <br />
+        <hr />
+        <ng-container *ngIf="title== 'update'">
+
+          <label>Agregar Opcion</label>
+          <nb-select
+            placeholder="Seleccion una opcion"
+            fullWidth="true"
+            [(selected)]="opcionId"
+            [disabled]="isInfo"
+          >
+            <nb-option *ngFor="let opcion of opciones" [value]="opcion.OpcionId">{{
+              opcion.Nombre
+            }}</nb-option>
+          </nb-select>
+          <button
+            fullWidth
+            *ngIf="!isInfo"
+            nbButton
+            status="success"
+            (click)="onAddRol(model.RolId)"
+          >
+            Agregar
+          </button>
+          <br />
+        </ng-container>
+
+
+        <nb-list>
+          <nb-list-item *ngFor="let opcion of rolOpciones">
+            <label>{{ getNombreRol(opcion.OpcionId) }}</label>
+            <nb-actions size="small" fullWidth="true"  *ngIf="title== 'update'">
+              <nb-action
+                icon="trash-2-outline"
+                (click)="onDeleteRol(model.RolId, opcion.OpcionId)"
+              ></nb-action>
+            </nb-actions>
+          </nb-list-item>
+        </nb-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

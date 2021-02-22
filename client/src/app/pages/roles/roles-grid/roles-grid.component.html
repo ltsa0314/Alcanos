@@ -1,0 +1,36 @@
+<nb-card>
+  <nb-card-body>
+    <h4>Roles</h4>
+    <nb-actions size="small">
+      <nb-action icon="plus-circle-outline" link="insert"></nb-action>
+      <nb-action icon="refresh-outline" (click)="loadData()"></nb-action>
+    </nb-actions>
+  </nb-card-body>
+</nb-card>
+<div class="row">
+  <div class="col-md-4" *ngFor="let item of data">
+    <nb-card>
+      <nb-card-body>
+        <label class="form-control-label">
+          <strong>Nombre:</strong> {{ item.Nombre }}
+        </label>
+      </nb-card-body>
+      <nb-card-footer>
+        <nb-actions size="small" fullWidth="true">
+          <nb-action
+            icon="eye-outline"
+            (click)="onInfo(item.RolId)"
+          ></nb-action>
+          <nb-action
+            icon="edit-outline"
+            (click)="onUpdate(item.RolId)"
+          ></nb-action>
+          <nb-action
+            icon="trash-2-outline"
+            (click)="onDelete(item.RolId)"
+          ></nb-action>
+        </nb-actions>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
